@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.AI", "Othello.AI\Ot
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Othello.WinForm", "Othllo.WinForm\Othello.WinForm.vbproj", "{E6A38AB4-A63A-4A6E-92B1-53AF1873D59A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.Blazor.Server", "Othello.Blazor\Server\Othello.Blazor.Server.csproj", "{B6E64F91-2781-48D9-8BE9-2E55B5A1CD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.Blazor.Client", "Othello.Blazor\Client\Othello.Blazor.Client.csproj", "{097D9F70-295C-4AA7-8743-CAED24E233C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Othello.Blazor.Shared", "Othello.Blazor\Shared\Othello.Blazor.Shared.csproj", "{CC6250BD-3766-42C6-A63D-3F719AB6EEA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{E6A38AB4-A63A-4A6E-92B1-53AF1873D59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6A38AB4-A63A-4A6E-92B1-53AF1873D59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6A38AB4-A63A-4A6E-92B1-53AF1873D59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E64F91-2781-48D9-8BE9-2E55B5A1CD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E64F91-2781-48D9-8BE9-2E55B5A1CD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E64F91-2781-48D9-8BE9-2E55B5A1CD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E64F91-2781-48D9-8BE9-2E55B5A1CD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{097D9F70-295C-4AA7-8743-CAED24E233C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097D9F70-295C-4AA7-8743-CAED24E233C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097D9F70-295C-4AA7-8743-CAED24E233C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097D9F70-295C-4AA7-8743-CAED24E233C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6250BD-3766-42C6-A63D-3F719AB6EEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6250BD-3766-42C6-A63D-3F719AB6EEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6250BD-3766-42C6-A63D-3F719AB6EEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6250BD-3766-42C6-A63D-3F719AB6EEA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
