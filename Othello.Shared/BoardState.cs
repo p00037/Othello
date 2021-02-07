@@ -5,7 +5,7 @@ namespace Othello.Shared
     public class BoardState
     {
         private Piece[,] board;
-        private Piece turnPiece { get; set; }
+        private Piece turnPiece;
         public const int MAX_POS_X = 8;
         public const int MAX_POS_Y = 8;
 

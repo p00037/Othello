@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @using Othello.Blazor.Shared
+@using Othello.Shared;
 @inject HttpClient Http
 
 <h1>Weather forecast</h1>
@@ -40,7 +41,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+
+        var boardState = new BoardState();
+        var aiConfig = new AiConfig(boardState.Board, boardState.TurnPiece, "sampleAI");
+
+        var result = await Http.PostAsJsonAsync("Ai", aiConfig);
+        var boardPoint = await result.Content.ReadFromJsonAsync<BoardPoint>();
+        Console.WriteLine($"X:{boardPoint.X} Y:{boardPoint.Y}");
     }
 
 }
