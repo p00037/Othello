@@ -2,11 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Othello.Blazor.Shared;
 using Othello.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Othello.Blazor.Server.Controllers
 {

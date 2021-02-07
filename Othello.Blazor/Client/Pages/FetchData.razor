@@ -3,52 +3,151 @@
 @using Othello.Shared;
 @inject HttpClient Http
 
+<style>
+
+    .table {
+        /*position: absolute;
+        top: 50%;
+        left: 50%;*/
+       /* margin-top: -257px;
+        margin-left: -257px;*/
+    }
+
+        .table td {
+            width: 60px;
+            height: 60px;
+            background-color: #ddd;
+            text-align: center;
+            font-size: 3vw;
+            cursor: pointer;
+        }
+
+    .table th, .table td {
+        border: solid 1px black;
+        /*実線 1px 黒*/
+    }
+
+    .list {
+        max-width: 750px;
+        margin: 0 auto;
+        list-style: none;
+        background-color: #fff;
+        padding: 0;
+    }
+
+    .list-item {
+        display: flex;
+        display: -webkit-flex;
+        -webkit-justify-content: flex-start;
+        justify-content: flex-start;
+        border-bottom: 2px solid #ddd;
+    }
+
+        .list-item > * {
+            width: 50px;
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        .list-item *:last-child {
+            -webkit-flex-grow: 1;
+            flex-grow: 1;
+        }
+</style>
+
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (forecasts == null)
+@if (boardState == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
+    @*<table class="table">
+            <thead>
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <th>Date</th>
+                    <th>Temp. (C)</th>
+                    <th>Temp. (F)</th>
+                    <th>Summary</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var forecast in forecasts)
+                {
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.TemperatureF</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>*@
+        <table class="table">
+            @for (int x = 0; x < 8; x++)
+            {
+            <tr>
+                @for (int y = 0; y < 8; y++)
+                {
+                    if (boardState.Board[x, y] == Piece.None)
+                    {
+                        <td></td>
+                    }
+                    else if (boardState.Board[x, y] == Piece.Black)
+                    {
+                        <td>🔴</td>
+                    }
+                    else if (boardState.Board[x, y] == Piece.White)
+                    {
+                        <td>🔵</td>
+                    }
+
+                }
+            </tr>
             }
-        </tbody>
+            <!-- 省略 真ん中は下記のような感じで記述 -->
+        @*<tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>🔴</td>
+            <td>🔵</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>🔵</td>
+            <td>🔴</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>*@
+        <!-- 省略 -->
     </table>
 }
 
 @code {
     private WeatherForecast[] forecasts;
+    private BoardState boardState = new BoardState();
 
     protected override async Task OnInitializedAsync()
     {
-        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
 
-        var boardState = new BoardState();
+        //var boardState = new BoardState();
         var aiConfig = new AiConfig(boardState.Board, boardState.TurnPiece, "sampleAI");
 
         var result = await Http.PostAsJsonAsync("Ai", aiConfig);
         var boardPoint = await result.Content.ReadFromJsonAsync<BoardPoint>();
         Console.WriteLine($"X:{boardPoint.X} Y:{boardPoint.Y}");
+        boardState.ExecuteTurn(boardPoint);
     }
 
 }
