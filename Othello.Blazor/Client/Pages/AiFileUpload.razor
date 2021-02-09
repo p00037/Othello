@@ -1,0 +1,26 @@
+﻿@page "/aifileupload"
+
+<h1>AIファイルのアップロード</h1>
+
+<InputFile OnChange="LoadFiles" multiple />
+<br />
+
+<span>@errorMessage</span>
+
+<button @onclick="ButtonUploadClickAsync">アップロード</button>
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+    <br />
+}
+
+@foreach (var file in loadedFiles)
+{
+    <p id="file-@(file.FileName)">
+        <strong>Name:</strong> <span id="file-name">@(file.FileName)</span><br />
+        <strong>Last modified:</strong> <span id="file-last-modified">@(file.LastModified.ToString())</span><br />
+        <strong>Size (bytes):</strong> <span id="file-size">@(file.Size)</span><br />
+        <strong>Content type:</strong> <span id="file-content-type">@(file.ContentType)</span><br />
+    </p>
+}
