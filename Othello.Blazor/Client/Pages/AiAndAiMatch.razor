@@ -1,18 +1,9 @@
-﻿@page "/fetchdata"
-@using Othello.Blazor.Shared
+﻿@page "/aiandaimatch"
 @using Othello.Shared;
-@using System.Threading.Tasks;
-@using System.Timers;
-@inject HttpClient Http
 
 <style>
 
     .table {
-        /*position: absolute;
-        top: 50%;
-        left: 50%;*/
-        /* margin-top: -257px;
-        margin-left: -257px;*/
     }
 
         .table td {
@@ -57,9 +48,7 @@
         }
 </style>
 
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
+<h1>AI対AI</h1>
 
 @if (boardState == null)
 {
@@ -90,42 +79,4 @@ else
             </tr>
         }
     </table>
-}
-
-@code {
-    private WeatherForecast[] forecasts;
-    private BoardState boardState = new BoardState();
-    private Timer timer;
-
-    protected override void OnInitialized()
-    {
-        SetTimmer();
-    }
-
-    private void SetTimmer()
-    {
-        // Create a timer with a two second interval.
-        timer = new Timer(1000);
-
-        // Hook up the Elapsed event for the timer.
-        timer.Elapsed += OnTimedEvent;
-        timer.AutoReset = true;
-        timer.Enabled = true;
-    }
-
-    private async void OnTimedEvent(Object source, ElapsedEventArgs e)
-    {
-        var aiConfig = new AiConfig(boardState.Board, boardState.TurnPiece, "sampleAI");
-        var result = await Http.PostAsJsonAsync("Ai", aiConfig);
-        var boardPoint = await result.Content.ReadFromJsonAsync<BoardPoint>();
-        Console.WriteLine($"X:{boardPoint.X} Y:{boardPoint.Y}");
-        boardState.ExecuteTurn(boardPoint);
-        StateHasChanged();
-
-        if (boardState.GetPossibleSetStoneCount(Piece.Black) == 0 && 
-            boardState.GetPossibleSetStoneCount(Piece.White) == 0)
-        {
-            timer.Stop();
-        }
-    }
 }

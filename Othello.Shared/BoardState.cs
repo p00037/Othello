@@ -49,7 +49,7 @@ namespace Othello.Shared
             return returnValue;
         }
 
-        public Piece[,] GetInitBoard()
+        private Piece[,] GetInitBoard()
         {
             Piece[,] board = new Piece[8, 8]; ;
             for (int x = 0; x <= MAX_POS_X - 1; x++)

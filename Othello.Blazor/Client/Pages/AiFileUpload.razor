@@ -7,8 +7,6 @@
 
 <span>@errorMessage</span>
 
-<button @onclick="ButtonUploadClickAsync">アップロード</button>
-
 @if (isLoading)
 {
     <p>Loading...</p>
@@ -24,3 +22,5 @@
         <strong>Content type:</strong> <span id="file-content-type">@(file.ContentType)</span><br />
     </p>
 }
+
+<button @onclick="ButtonUploadClickAsync">アップロード</button>
