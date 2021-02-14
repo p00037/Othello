@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Othello.Blazor.Shared;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -13,50 +11,47 @@ namespace Othello.Blazor.Client.Pages
     public partial class AiFileUpload : ComponentBase
     {
         [Inject]
-        HttpClient Http { get; set; }
+        private HttpClient Http { get; set; }
 
-        List<UploadFile> loadedFiles = new List<UploadFile>();
-        bool isLoading;
-        string errorMessage;
+        private UploadFile uploadFile = new UploadFile();
+        private bool isLoading;
+        private string errorMessage;
+        private string saveMassage;
 
         async Task LoadFiles(InputFileChangeEventArgs e)
         {
-            isLoading = true;
-            loadedFiles.Clear();
-            errorMessage = string.Empty;
+            this.isLoading = true;
+            this.errorMessage = string.Empty;
+            this.saveMassage = string.Empty;
 
             try
             {
-                foreach (var file in e.GetMultipleFiles(3))
+                foreach (var file in e.GetMultipleFiles(1))
                 {
                     StateHasChanged();
                     var buffers = new byte[file.Size];
                     await file.OpenReadStream().ReadAsync(buffers);
-                    var uploadFile = new UploadFile()
-                    {
-                        FileName = file.Name,
-                        ContentType = file.ContentType,
-                        Size = file.Size,
-                        LastModified = file.LastModified,
-                        Content = buffers
-                    };
-
-                    loadedFiles.Add(uploadFile);
+                    this.uploadFile.FileName = file.Name;
+                    this.uploadFile.ContentType = file.ContentType;
+                    this.uploadFile.Size = file.Size;
+                    this.uploadFile.LastModified = file.LastModified;
+                    this.uploadFile.Content = buffers;
                 }
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
+                this.errorMessage = ex.Message;
             }
             finally
             {
-                isLoading = false;
+                this.isLoading = false;
             }
         }
 
         public async Task ButtonUploadClickAsync()
         {
-            await Http.PostAsJsonAsync("AiFileUpload", loadedFiles);
+            await Http.PostAsJsonAsync("AiFileUpload", uploadFile);
+            this.saveMassage = "登録完了";
         }
     }
 }

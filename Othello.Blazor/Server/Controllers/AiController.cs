@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Othello.Blazor.Server.Shared;
 using Othello.Blazor.Shared;
 using Othello.Shared;
 using System.Reflection;
@@ -10,9 +11,9 @@ namespace Othello.Blazor.Server.Controllers
     [Route("[controller]")]
     public class AiController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<AiController> _logger;
 
-        public AiController(ILogger<WeatherForecastController> logger)
+        public AiController(ILogger<AiController> logger)
         {
             _logger = logger;
         }
@@ -25,10 +26,10 @@ namespace Othello.Blazor.Server.Controllers
             return ai.HitPieceBoardPoint(board);
         }
 
-        private IAi CreateAiObject(Piece turnPiece, string AiName)
+        private IAi CreateAiObject(Piece turnPiece, string aiName)
         {
             // DLLをAssemblyにロードする
-            var asm = Assembly.LoadFrom(GetAppPath() + @$"\AI\{AiName}.dll");
+            var asm = Assembly.LoadFrom($"{AppPath.GetAiDirectory()}\\{aiName}");
 
             // クラスをインスタンス化
             return (IAi)asm.CreateInstance("sampleAI.AI",
