@@ -15,15 +15,10 @@ namespace Othello.Blazor.Server.Controllers
         [HttpPost]
         public void Post(UploadFile uploadFile)
         {
-            //foreach (var uploadFile in uploadFiles)
-            //{
-                WriteBinaryToFile($"{AppPath.GetAiDirectory()}\\{uploadFile.FileName}", uploadFile.Content);
+            WriteBinaryToFile($"{AppPath.GetAiDirectory()}\\{uploadFile.FileName}", uploadFile.Content);
             var aiInfo = new AiInfo() { DisplayName = uploadFile.DisplayName, FileName = uploadFile.FileName };
-            //var aiInfos = new List<AiInfo>() { aiInfo };
-            //JsonFileIO.WriteFile(AppPath.GetAiInfosFilePath(), Encoding.UTF8, aiInfos);
             var aiInfoRepository = new AiInfoRepository();
             aiInfoRepository.Save(aiInfo);
-            //}
         }
 
         // バイナリデータをファイルに書き込み(書き込み先のフォルダがない場合は作成する)

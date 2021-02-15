@@ -50,6 +50,27 @@
 
 <h1>AI対AI</h1>
 
+🔴黒
+<select class="form-control selectpicker" @bind="ai1">
+    <option value="-1">--select--</option>
+    @foreach (var item in aiInfoList)
+    {
+        <option value="@item.FileName">@item.DisplayName </option>
+    }
+</select>
+
+🔵白
+<select class="form-control selectpicker" @bind="ai2">
+    <option value="-1">--select--</option>
+    @foreach (var item in aiInfoList)
+    {
+        <option value="@item.FileName">@item.DisplayName </option>
+    }
+</select>
+<br />
+<button @onclick="ButtonStartClick">対戦開始</button>
+<br />
+
 @if (boardState == null)
 {
     <p><em>Loading...</em></p>
