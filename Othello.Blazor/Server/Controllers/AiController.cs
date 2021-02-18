@@ -23,7 +23,7 @@ namespace Othello.Blazor.Server.Controllers
         {
             IAi ai = CreateAiObject(aiConfig.TurnPiece,aiConfig.AiName);
             var board = aiConfig.GetBoard();
-            return ai.HitPieceBoardPoint(board);
+            return ai.HitPiece(board);
         }
 
         private IAi CreateAiObject(Piece turnPiece, string aiName)
@@ -32,7 +32,7 @@ namespace Othello.Blazor.Server.Controllers
             var asm = Assembly.LoadFrom($"{AppPath.GetAiDirectory()}\\{aiName}");
 
             // クラスをインスタンス化
-            return (IAi)asm.CreateInstance("sampleAI.AI",
+            return (IAi)asm.CreateInstance("OthelloAI.AI",
                 false,
                 BindingFlags.CreateInstance,
                 null,

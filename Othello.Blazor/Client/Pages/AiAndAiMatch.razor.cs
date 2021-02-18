@@ -28,6 +28,7 @@ namespace Othello.Blazor.Client.Pages
 
         public void ButtonStartClick()
         {
+            this.boardState = new BoardState();
             SetTimmer();
         }
 

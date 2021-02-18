@@ -1,7 +1,7 @@
 ﻿using Othello.Shared;
 using System;
 
-namespace sampleAI
+namespace Othello.AI
 {
     public class AI : IAi
     {
@@ -12,7 +12,7 @@ namespace sampleAI
             this.turnPiece = turnPiece;
         }
 
-        public BoardPoint HitPieceBoardPoint(Piece[,] board)
+        public BoardPoint HitPiece(Piece[,] board)
         {
             var turn = new Turn(board, turnPiece);
             

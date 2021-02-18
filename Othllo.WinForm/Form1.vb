@@ -48,7 +48,7 @@ Public Class Form1
         Timer1.Stop()
 
         Dim ai = GetAi()
-        Dim point = ai.HitPieceBoardPoint(Me.boardState.Board)
+        Dim point = ai.HitPiece(Me.boardState.Board)
 
         Me.boardState.ExecuteTurn(point)
 

@@ -6,6 +6,6 @@ namespace Othello.Shared
 {
     public interface IAi
     {
-        BoardPoint HitPieceBoardPoint(Piece[,] myBord);
+        BoardPoint HitPiece(Piece[,] myBord);
     }
 }
